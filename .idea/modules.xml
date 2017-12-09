@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Blind-common/Blind-common.iml" filepath="$PROJECT_DIR$/Blind-common/Blind-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Blind-manager/Blind-manager.iml" filepath="$PROJECT_DIR$/Blind-manager/Blind-manager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Blind-manager/Blind-manager-dao/Blind-manager-dao.iml" filepath="$PROJECT_DIR$/Blind-manager/Blind-manager-dao/Blind-manager-dao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Blind-manager/Blind-manager-domain/Blind-manager-domain.iml" filepath="$PROJECT_DIR$/Blind-manager/Blind-manager-domain/Blind-manager-domain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Blind-manager/Blind-manager-service/Blind-manager-service.iml" filepath="$PROJECT_DIR$/Blind-manager/Blind-manager-service/Blind-manager-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Blind-manager/Blind-manager-serviceImpl/Blind-manager-serviceImpl.iml" filepath="$PROJECT_DIR$/Blind-manager/Blind-manager-serviceImpl/Blind-manager-serviceImpl.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Blind-manager/Blind-manager-web/Blind-manager-web.iml" filepath="$PROJECT_DIR$/Blind-manager/Blind-manager-web/Blind-manager-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Blind-parent/Blind-parent.iml" filepath="$PROJECT_DIR$/Blind-parent/Blind-parent.iml" />
+    </modules>
+  </component>
+</project>

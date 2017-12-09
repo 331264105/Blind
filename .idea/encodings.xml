@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$/Blind-common" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Blind-manager" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Blind-manager/Blind-manager-dao" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Blind-manager/Blind-manager-domain" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Blind-manager/Blind-manager-service" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Blind-manager/Blind-manager-serviceImpl" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Blind-manager/Blind-manager-web" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Blind-parent" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
+</project>

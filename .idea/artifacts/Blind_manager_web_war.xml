@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="Blind-manager-web:war">
+    <output-path>$PROJECT_DIR$/Blind-manager/Blind-manager-web/target</output-path>
+    <root id="archive" name="Blind-manager-web.war">
+      <element id="artifact" artifact-name="Blind-manager-web:war exploded" />
+    </root>
+  </artifact>
+</component>
