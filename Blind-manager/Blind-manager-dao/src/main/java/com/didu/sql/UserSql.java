@@ -1,6 +1,8 @@
 package com.didu.sql;
 
+import com.didu.domain.Login;
 import com.didu.domain.Reduser;
+import com.didu.domain.User;
 import org.apache.ibatis.jdbc.SQL;
 
 /**
@@ -21,6 +23,24 @@ public class UserSql {
                     }
                     if (reduser.getUid() > 0) {
                         WHERE("uid=#{uid}");
+                    }
+                    ORDER_BY("id desc");
+                }
+            }.toString();
+            return sql;
+        }
+    }
+    public String queryLogin(Login login) {
+        {
+            String sql = new SQL() {
+                {
+                    SELECT("*");
+                    FROM("login");
+                    if (login.getUid() > 0) {
+                        WHERE("uid=#{uid}");
+                    }
+                    if (login.getPhone()!=null&&login.getPhone().length()>0) {
+                        WHERE("phone=#{phone}");
                     }
                     ORDER_BY("id desc");
                 }
@@ -52,6 +72,21 @@ public class UserSql {
                         SET("wechat=#{wechat}");
                     }
                   WHERE("uid=#{uid}");
+                }
+            }.toString();
+            return sql;
+        }
+    }
+    public String queryUser(User user) {
+        {
+            String sql = new SQL() {
+                {
+                    SELECT("*");
+                    FROM("user");
+                    if (user.getUid() > 0) {
+                        WHERE("uid=#{uid}");
+                    }
+                    ORDER_BY("id desc");
                 }
             }.toString();
             return sql;

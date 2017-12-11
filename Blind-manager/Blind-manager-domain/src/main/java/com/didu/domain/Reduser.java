@@ -13,8 +13,9 @@ public class Reduser {
     private String remark;
     private String status;
     private int uid;
+    private String url;
 
-    public Reduser(int id, String redname, String city, String phone, String identity, String wechat, String remark, String status, int uid) {
+    public Reduser(int id, String redname, String city, String phone, String identity, String wechat, String remark, String status, int uid, String url) {
         this.id = id;
         this.redname = redname;
         this.city = city;
@@ -24,9 +25,10 @@ public class Reduser {
         this.remark = remark;
         this.status = status;
         this.uid = uid;
+        this.url = url;
     }
 
-    public Reduser(String redname, String city, String phone, String identity, String wechat, String remark, String status, int uid) {
+    public Reduser(String redname, String city, String phone, String identity, String wechat, String remark, String status, int uid, String url) {
         this.redname = redname;
         this.city = city;
         this.phone = phone;
@@ -35,6 +37,7 @@ public class Reduser {
         this.remark = remark;
         this.status = status;
         this.uid = uid;
+        this.url = url;
     }
 
     public Reduser() {
@@ -113,6 +116,14 @@ public class Reduser {
         this.uid = uid;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
     @Override
     public String toString() {
         return "Reduser{" +
@@ -125,6 +136,7 @@ public class Reduser {
                 ", remark='" + remark + '\'' +
                 ", status='" + status + '\'' +
                 ", uid=" + uid +
+                ", url='" + url + '\'' +
                 '}';
     }
 }

@@ -6,23 +6,23 @@ package com.didu.domain;
 public class Login {
     private int id;
     private String phone;
-    private String passwork;
+    private String password;
     private int referrer;
     private int uid;
-    private int daytime;
+    private String daytime;
 
-    public Login(int id, String phone, String passwork, int referrer, int uid, int daytime) {
+    public Login(int id, String phone, String password, int referrer, int uid, String daytime) {
         this.id = id;
         this.phone = phone;
-        this.passwork = passwork;
+        this.password = password;
         this.referrer = referrer;
         this.uid = uid;
         this.daytime = daytime;
     }
 
-    public Login(String phone, String passwork, int referrer, int uid, int daytime) {
+    public Login(String phone, String password, int referrer, int uid, String daytime) {
         this.phone = phone;
-        this.passwork = passwork;
+        this.password = password;
         this.referrer = referrer;
         this.uid = uid;
         this.daytime = daytime;
@@ -48,12 +48,12 @@ public class Login {
         this.phone = phone;
     }
 
-    public String getPasswork() {
-        return passwork;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPasswork(String passwork) {
-        this.passwork = passwork;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public int getReferrer() {
@@ -72,11 +72,11 @@ public class Login {
         this.uid = uid;
     }
 
-    public int getDaytime() {
+    public String getDaytime() {
         return daytime;
     }
 
-    public void setDaytime(int daytime) {
+    public void setDaytime(String daytime) {
         this.daytime = daytime;
     }
 
@@ -85,10 +85,10 @@ public class Login {
         return "Login{" +
                 "id=" + id +
                 ", phone='" + phone + '\'' +
-                ", passwork='" + passwork + '\'' +
+                ", password='" + password + '\'' +
                 ", referrer=" + referrer +
                 ", uid=" + uid +
-                ", daytime=" + daytime +
+                ", daytime='" + daytime + '\'' +
                 '}';
     }
 }
