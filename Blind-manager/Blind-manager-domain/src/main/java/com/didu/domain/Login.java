@@ -8,19 +8,19 @@ public class Login {
     private String phone;
     private String password;
     private int referrer;
-    private int uid;
+    private String uid;
     private String daytime;
 
-    public Login(int id, String phone, String password, int referrer, int uid, String daytime) {
+    public Login(String daytime, int id, String phone, String password, int referrer, String uid) {
+        this.daytime = daytime;
         this.id = id;
         this.phone = phone;
         this.password = password;
         this.referrer = referrer;
         this.uid = uid;
-        this.daytime = daytime;
     }
 
-    public Login(String phone, String password, int referrer, int uid, String daytime) {
+    public Login(String phone, String password, int referrer, String uid, String daytime) {
         this.phone = phone;
         this.password = password;
         this.referrer = referrer;
@@ -64,11 +64,11 @@ public class Login {
         this.referrer = referrer;
     }
 
-    public int getUid() {
+    public String getUid() {
         return uid;
     }
 
-    public void setUid(int uid) {
+    public void setUid(String uid) {
         this.uid = uid;
     }
 
@@ -87,7 +87,7 @@ public class Login {
                 ", phone='" + phone + '\'' +
                 ", password='" + password + '\'' +
                 ", referrer=" + referrer +
-                ", uid=" + uid +
+                ", uid='" + uid + '\'' +
                 ", daytime='" + daytime + '\'' +
                 '}';
     }

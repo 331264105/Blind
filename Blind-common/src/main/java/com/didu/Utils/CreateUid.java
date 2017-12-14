@@ -8,7 +8,7 @@ import java.util.Date;
  * Created by Administrator on 2017/12/9.
  */
 public class CreateUid {
-    public static int CreateUid(int id){
+    public static String CreateUid(int id){
         int y , m , d , length;
         String pre;
         Calendar cal= Calendar.getInstance();
@@ -21,11 +21,11 @@ public class CreateUid {
         String sid = String.valueOf(id);
         String suby = sy.substring(2,4);
         pre=suby+sm+sd;
-        length=4-sid.length();
+        length=5-sid.length();
         for (int i=0;i<length;i++){
             pre+="0";
         }
-        int uid = Integer.parseInt(pre + sid);
+        String uid = pre + sid;
         return  uid;
     }
 }

@@ -12,10 +12,13 @@ public class Reduser {
     private String wechat;
     private String remark;
     private String status;
-    private int uid;
-    private String url;
+    private String uid;
+    private String address;
+    private String introduce;
+    private String workname;
+    private String birthdata;
 
-    public Reduser(int id, String redname, String city, String phone, String identity, String wechat, String remark, String status, int uid, String url) {
+    public Reduser(int id, String redname, String city, String phone, String identity, String wechat, String remark, String status, String uid, String address, String introduce, String workname, String birthdata) {
         this.id = id;
         this.redname = redname;
         this.city = city;
@@ -25,10 +28,13 @@ public class Reduser {
         this.remark = remark;
         this.status = status;
         this.uid = uid;
-        this.url = url;
+        this.address = address;
+        this.introduce = introduce;
+        this.workname = workname;
+        this.birthdata = birthdata;
     }
 
-    public Reduser(String redname, String city, String phone, String identity, String wechat, String remark, String status, int uid, String url) {
+    public Reduser(String redname, String city, String phone, String identity, String wechat, String remark, String status, String uid, String address, String introduce, String workname, String birthdata) {
         this.redname = redname;
         this.city = city;
         this.phone = phone;
@@ -37,7 +43,10 @@ public class Reduser {
         this.remark = remark;
         this.status = status;
         this.uid = uid;
-        this.url = url;
+        this.address = address;
+        this.introduce = introduce;
+        this.workname = workname;
+        this.birthdata = birthdata;
     }
 
     public Reduser() {
@@ -108,20 +117,44 @@ public class Reduser {
         this.status = status;
     }
 
-    public int getUid() {
+    public String getUid() {
         return uid;
     }
 
-    public void setUid(int uid) {
+    public void setUid(String uid) {
         this.uid = uid;
     }
 
-    public String getUrl() {
-        return url;
+    public String getAddress() {
+        return address;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getIntroduce() {
+        return introduce;
+    }
+
+    public void setIntroduce(String introduce) {
+        this.introduce = introduce;
+    }
+
+    public String getWorkname() {
+        return workname;
+    }
+
+    public void setWorkname(String workname) {
+        this.workname = workname;
+    }
+
+    public String getBirthdata() {
+        return birthdata;
+    }
+
+    public void setBirthdata(String birthdata) {
+        this.birthdata = birthdata;
     }
 
     @Override
@@ -135,8 +168,11 @@ public class Reduser {
                 ", wechat='" + wechat + '\'' +
                 ", remark='" + remark + '\'' +
                 ", status='" + status + '\'' +
-                ", uid=" + uid +
-                ", url='" + url + '\'' +
+                ", uid='" + uid + '\'' +
+                ", address='" + address + '\'' +
+                ", introduce='" + introduce + '\'' +
+                ", workname='" + workname + '\'' +
+                ", birthdata='" + birthdata + '\'' +
                 '}';
     }
 }

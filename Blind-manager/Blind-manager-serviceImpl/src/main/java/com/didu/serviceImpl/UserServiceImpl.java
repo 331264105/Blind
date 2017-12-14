@@ -1,10 +1,7 @@
 package com.didu.serviceImpl;
 
 import com.didu.dao.UserDao;
-import com.didu.domain.Login;
-import com.didu.domain.Reduser;
-import com.didu.domain.User;
-import com.didu.domain.Userpicture;
+import com.didu.domain.*;
 import com.didu.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,9 +43,35 @@ public class UserServiceImpl implements UserService {
         return userDao.updateReduid(reduser) >0?true:false;
     }
 
+
     @Override
     public boolean updateReduser(Reduser reduser) {
         return userDao.updateReduser(reduser) >0?true:false;
+    }
+
+    @Override
+    public List<Redpicture> queryRedpicture(Redpicture redpicture) {
+        return userDao.queryRedpicture(redpicture);
+    }
+
+    @Override
+    public List<Userpicture> queryUserpicture(Userpicture userpicture) {
+        return userDao.queryUserpicture(userpicture);
+    }
+
+    @Override
+    public List<Userpicture> queryUserpic(Userpicture userpicture) {
+        return userDao.queryUserpic(userpicture);
+    }
+
+    @Override
+    public boolean updateUserpicture(Userpicture userpicture) {
+        return userDao.updateUserpicture(userpicture)>0?true:false;
+    }
+
+    @Override
+    public boolean upRedpicture(Redpicture redpicture) {
+        return userDao.upRedpicture(redpicture)>0?true:false;
     }
 
     @Override
@@ -72,7 +95,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean updateUser(User user) {
+        return userDao.updateUser(user)>0?true:false;
+    }
+
+    @Override
     public boolean addUserpicture(Userpicture userpicture) {
         return userDao.addUserpicture(userpicture)>0?true:false;
+    }
+
+    @Override
+    public boolean updateUserpictureByuid(Userpicture userpicture) {
+        return userDao.updateUserpictureByuid(userpicture)>0?true:false;
+    }
+
+    @Override
+    public List<User> queryUserByother(User user) {
+        return userDao.queryUserByother(user);
     }
 }
