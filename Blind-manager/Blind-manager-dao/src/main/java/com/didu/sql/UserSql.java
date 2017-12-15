@@ -1,5 +1,6 @@
 package com.didu.sql;
 
+import com.didu.Utils.Page;
 import com.didu.domain.Login;
 import com.didu.domain.Reduser;
 import com.didu.domain.User;
@@ -26,6 +27,30 @@ public class UserSql {
                         WHERE("uid=#{uid}");
                     }
                     ORDER_BY("id desc");
+                }
+            }.toString();
+            return sql;
+        }
+    }
+    public String queryReduserByother(Reduser reduser,Page page) {
+        {
+            String sql = new SQL() {
+                {
+                    SELECT("*");
+                    FROM("reduser");
+                    if (reduser.getIdentity() != null && reduser.getIdentity().length() > 0) {
+                        WHERE("identity=#{arg0.identity}");
+                    }
+                    if (reduser.getPhone() != null && reduser.getPhone().length() > 0) {
+                        WHERE("phone=#{arg0.phone}");
+                    }
+                    if (reduser.getUid()!=null&&reduser.getUid().length() > 0) {
+                        WHERE("uid=#{arg0.uid}");
+                    }
+                    if (reduser.getAddress()!=null&&reduser.getAddress().length() > 0) {
+                        WHERE("address=#{arg0.address}");
+                    }
+                    ORDER_BY("id desc limit #{arg1.page},#{arg1.rows}");
                 }
             }.toString();
             return sql;
@@ -60,8 +85,8 @@ public class UserSql {
                     if (reduser.getPhone()!=null&&reduser.getPhone().length()>0){
                         SET("phone=#{phone}");
                     }
-                    if (reduser.getRedname()!=null&&reduser.getRedname().length()>0){
-                        SET("redname=#{redname}");
+                    if (reduser.getUsername()!=null&&reduser.getUsername().length()>0){
+                        SET("username=#{username}");
                     }
                     if (reduser.getRemark()!=null&&reduser.getRemark().length()>0){
                         SET("remark=#{remark}");
@@ -104,40 +129,40 @@ public class UserSql {
                     if (user.getPhone()!=null&&user.getPhone().length() > 0) {
                         WHERE("phone=#{phone}");
                     }
-                    ORDER_BY("id desc");
+                    ORDER_BY("num desc");
                 }
             }.toString();
             return sql;
         }
     }
-    public String queryUserByother(User user) {
+    public String queryUserByother(User user,Page page) {
         {
             String sql = new SQL() {
                 {
                     SELECT("*");
                     FROM("user");
                     if (user.getSex()!=null&&user.getSex().length() > 0) {
-                        WHERE("sex=#{sex}");
+                        WHERE("sex=#{arg0.sex}");
                     }
                     if (user.getStatus()!=null&&user.getStatus().length()>0){
-                        WHERE("status=#{status}");
+                        WHERE("status=#{arg0.status}");
                     }
                     if (user.getUsername()!=null&&user.getUsername().length()>0){
-                        WHERE("username=#{username}");
+                        WHERE("username=#{arg0.username}");
                     }
                     if (user.getCity()!=null&&user.getCity().length()>0){
-                        WHERE("city=#{city}");
+                        WHERE("city like  CONCAT('%', #{arg0.city},'%')");
                     }
                     if (user.getEducation()!=null&&user.getEducation().length()>0){
-                        WHERE("education=#{education}");
+                        WHERE("education=#{arg0.education}");
                     }
                     if (user.getStature()!=null&&user.getStature().length()>0){
-                        WHERE("stature=#{stature}");
+                        WHERE("stature=#{arg0.stature}");
                     }
                     if (user.getUid()!=null&&user.getUid().length() > 0) {
-                        WHERE("uid=#{uid}");
+                        WHERE("uid=#{arg0.uid}");
                     }
-                    ORDER_BY("id desc");
+                    ORDER_BY("num desc limit #{arg1.page},#{arg1.rows}");
                 }
             }.toString();
             return sql;

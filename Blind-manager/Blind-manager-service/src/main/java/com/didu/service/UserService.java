@@ -1,5 +1,6 @@
 package com.didu.service;
 
+import com.didu.Utils.Page;
 import com.didu.domain.*;
 
 import java.util.List;
@@ -14,7 +15,10 @@ public interface UserService {
     List<Reduser> queryReduser(Reduser reduser);
     boolean updateReduid(Reduser reduser);
     boolean updateReduser(Reduser reduser);
+    boolean updateRedpicture(Redpicture redpicture);
     List<Redpicture> queryRedpicture(Redpicture redpicture);
+    List<Reduser> queryReduserByother(Reduser reduser,Page page);
+    Redpicture queryRedIpic(Redpicture redpicture);
     //通过id查看
     List<Userpicture> queryUserpicture(Userpicture userpicture);
     //通过uid和status查看
@@ -30,6 +34,6 @@ public interface UserService {
     boolean updateUser(User user);
     boolean addUserpicture(Userpicture userpicture);
     boolean updateUserpictureByuid(Userpicture userpicture);
-    List<User> queryUserByother(User user);
+    List<User> queryUserByother(User user,Page page);
 
 }

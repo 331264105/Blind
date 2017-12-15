@@ -1,5 +1,6 @@
 package com.didu.serviceImpl;
 
+import com.didu.Utils.Page;
 import com.didu.dao.UserDao;
 import com.didu.domain.*;
 import com.didu.service.UserService;
@@ -50,8 +51,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean updateRedpicture(Redpicture redpicture) {
+        return userDao.updateRedpicture(redpicture)>0?true:false;
+    }
+
+    @Override
     public List<Redpicture> queryRedpicture(Redpicture redpicture) {
         return userDao.queryRedpicture(redpicture);
+    }
+
+    @Override
+    public List<Reduser> queryReduserByother(Reduser reduser,Page page) {
+        return userDao.queryReduserByother(reduser,page);
+    }
+
+    @Override
+    public Redpicture queryRedIpic(Redpicture redpicture) {
+        return userDao.queryRedIpic(redpicture);
     }
 
     @Override
@@ -110,7 +126,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> queryUserByother(User user) {
-        return userDao.queryUserByother(user);
+    public List<User> queryUserByother(User user,Page page) {
+        return userDao.queryUserByother(user,page);
     }
 }

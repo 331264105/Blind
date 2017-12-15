@@ -5,7 +5,7 @@ package com.didu.domain;
  */
 public class Reduser {
     private int id;
-    private String redname;
+    private String username;
     private String city;
     private String phone;
     private String identity;
@@ -17,10 +17,11 @@ public class Reduser {
     private String introduce;
     private String workname;
     private String birthdata;
+    private Redpicture redpicture;
 
-    public Reduser(int id, String redname, String city, String phone, String identity, String wechat, String remark, String status, String uid, String address, String introduce, String workname, String birthdata) {
+    public Reduser(int id, String username, String city, String phone, String identity, String wechat, String remark, String status, String uid, String address, String introduce, String workname, String birthdata, Redpicture redpicture) {
         this.id = id;
-        this.redname = redname;
+        this.username = username;
         this.city = city;
         this.phone = phone;
         this.identity = identity;
@@ -32,10 +33,11 @@ public class Reduser {
         this.introduce = introduce;
         this.workname = workname;
         this.birthdata = birthdata;
+        this.redpicture = redpicture;
     }
 
-    public Reduser(String redname, String city, String phone, String identity, String wechat, String remark, String status, String uid, String address, String introduce, String workname, String birthdata) {
-        this.redname = redname;
+    public Reduser(String username, String city, String phone, String identity, String wechat, String remark, String status, String uid, String address, String introduce, String workname, String birthdata, Redpicture redpicture) {
+        this.username = username;
         this.city = city;
         this.phone = phone;
         this.identity = identity;
@@ -47,6 +49,7 @@ public class Reduser {
         this.introduce = introduce;
         this.workname = workname;
         this.birthdata = birthdata;
+        this.redpicture = redpicture;
     }
 
     public Reduser() {
@@ -61,12 +64,12 @@ public class Reduser {
         this.id = id;
     }
 
-    public String getRedname() {
-        return redname;
+    public String getUsername() {
+        return username;
     }
 
-    public void setRedname(String redname) {
-        this.redname = redname;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getCity() {
@@ -157,11 +160,19 @@ public class Reduser {
         this.birthdata = birthdata;
     }
 
+    public Redpicture getRedpicture() {
+        return redpicture;
+    }
+
+    public void setRedpicture(Redpicture redpicture) {
+        this.redpicture = redpicture;
+    }
+
     @Override
     public String toString() {
         return "Reduser{" +
                 "id=" + id +
-                ", redname='" + redname + '\'' +
+                ", username='" + username + '\'' +
                 ", city='" + city + '\'' +
                 ", phone='" + phone + '\'' +
                 ", identity='" + identity + '\'' +
@@ -173,6 +184,7 @@ public class Reduser {
                 ", introduce='" + introduce + '\'' +
                 ", workname='" + workname + '\'' +
                 ", birthdata='" + birthdata + '\'' +
+                ", redpicture=" + redpicture +
                 '}';
     }
 }

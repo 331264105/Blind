@@ -1,20 +1,17 @@
 package com.didu.web;
 
 import com.didu.Utils.CreateUid;
+import com.didu.Utils.Page;
 import com.didu.domain.*;
 import com.didu.service.UserService;
-import org.apache.ibatis.annotations.Param;
-import org.apache.shiro.crypto.hash.Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
-import sun.rmi.runtime.Log;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -132,6 +129,7 @@ public class UserControl {
             return "0";
         }else {
             user.setStatus("1");
+            user.setNum(0);
             boolean b = userService.addUser(user);
             if (b) {
                 User ru=new User();
@@ -179,16 +177,36 @@ public class UserControl {
         return false;
     }
     //查看用户信息
-    @RequestMapping("/queryUser")
+    @RequestMapping("/queryUsers")
     @ResponseBody
-    public List<User> queryUser(User user){
-       return userService.queryUser(user);
+    public List<User> queryUsers(User user,Page page){
+        page.setRows(10);
+        page.setPage((page.getPage() - 1) * 10);
+        List<User> userList = userService.queryUserByother(user,page);
+        Userpicture upic = new Userpicture();
+        for (User u:userList) {
+            upic.setUid(u.getUid());
+            upic.setStatus("1");
+            List<Userpicture> userpictures = userService.queryUserpic(upic);
+            u.setUserpicture(userpictures.get(0));
+        }
+        return userList;
     }
     //查看红娘信息
     @RequestMapping("/queryReduser")
     @ResponseBody
-    public List<Reduser> queryReduser(Reduser reduser){
-        return userService.queryReduser(reduser);
+    public List<Reduser> queryReduser(Reduser reduser,Page page){
+        page.setRows(10);
+        page.setPage((page.getPage() - 1)*10);
+        List<Reduser> redusers = userService.queryReduserByother(reduser,page);
+        Redpicture rp=new Redpicture();
+        for (Reduser ru:redusers){
+            rp.setUid(ru.getUid());
+            rp.setStatus("1");
+            Redpicture rpic = userService.queryRedIpic(rp);
+            ru.setRedpicture(rpic);
+        }
+        return redusers;
     }
     //修改用户
     @RequestMapping("/updateUser")
@@ -203,11 +221,11 @@ public class UserControl {
         return userService.updateReduser(reduser);
     }
     //修改红娘图片
-   /* @RequestMapping("/updateRedUserpic")
+    @RequestMapping("/updateRedUserpic")
     @ResponseBody
-    public boolean updateRedUserpic(Reduser reduser,@RequestParam(name = "files", required = false) CommonsMultipartFile[] files,@ModelAttribute(value = "dir") File dir) throws IOException {
-        List<Reduser> redusers = userService.queryReduser(reduser);
-        if (redusers.size()>0) {
+    public boolean updateRedUserpic(Redpicture redpicture,@RequestParam(name = "files", required = false) CommonsMultipartFile[] files,@ModelAttribute(value = "dir") File dir) throws IOException {
+        List<Redpicture> redpictureList = userService.queryRedpicture(redpicture);
+        if (redpictureList.size()>0) {
             for (int j = 0; j < files.length; j++) {
                 if (!files[j].isEmpty() && files[j].getSize() > 0) {
                     // 获取上传的文件的名称
@@ -220,13 +238,13 @@ public class UserControl {
                         }
                         File file1 = new File(dir,System.currentTimeMillis() +"_"+ fileName);
                         files[j].transferTo(file1);
-                        String url = redusers.get(0).getUrl();
+                        String url = redpictureList.get(0).getUrl();
                         String[] splits = url.split("\\/");
                         String realurl = dir + "/"+splits[1];
                         File file = new File(realurl);
                         file.delete();
-                        reduser.setUrl("user/"+file1.getName());
-                        boolean b = userService.updateReduser(reduser);
+                        redpicture.setUrl("user/"+file1.getName());
+                        boolean b = userService.updateRedpicture(redpicture);
                         if (b){
                             return true;
                         }else{
@@ -239,7 +257,7 @@ public class UserControl {
         }else {
             return false;
         }
-    }*/
+    }
     //修改用户图片
     @RequestMapping("/updateUserpic")
     @ResponseBody
@@ -352,6 +370,12 @@ public class UserControl {
     @RequestMapping("/queryUserpic")
     @ResponseBody
     public List<Userpicture> queryUserpic(Userpicture userpicture){
+        User u = new User();
+        u.setUid(userpicture.getUid());
+        List<User> users = userService.queryUser(u);
+        int i = users.get(0).getNum();
+        u.setNum(i+1);
+        boolean b = userService.updateUser(u);
         return userService.queryUserpic(userpicture);
     }
     //查看红娘图片
@@ -360,12 +384,15 @@ public class UserControl {
     public List<Redpicture> queryUserpic(Redpicture redpicture){
         return userService.queryRedpicture(redpicture);
     }
-    @RequestMapping("/queryUserByother")
+
+
+
+    /*@RequestMapping("/queryUserByother")
     @ResponseBody
     public HashMap<String,Object> queryUserByother(User user){
         HashMap<String,Object> map=new HashMap<>();
         List<User> users = userService.queryUserByother(user);
         Collections.shuffle(users);
         return map;
-    }
+    }*/
 }
