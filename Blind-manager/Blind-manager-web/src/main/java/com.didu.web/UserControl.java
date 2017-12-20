@@ -55,28 +55,56 @@ public class UserControl {
                 u.setUid(login1.getUid());
                 List<User> users = userService.queryUser(u);
                 if (users.size()>0){
-                    up.setUid(login1.getUid());
-                    up.setStatus("1");
-                    List<Userpicture> ups = userService.queryUserpic(up);
-                    users.get(0).setUserpicture(ups.get(0));
-                    map.put("success",true);
-                    map.put("user",users.get(0));
-                    return map;
+                    //审核通过
+                    if ("2".equals(users.get(0).getStatus())) {
+                        up.setUid(login1.getUid());
+                        up.setStatus("1");
+                        List<Userpicture> ups = userService.queryUserpic(up);
+                        users.get(0).setUserpicture(ups.get(0));
+                        map.put("success", true);
+                        map.put("user", users.get(0));
+                        return map;
+                    //审核中，待审核
+                    }else if("1".equals(users.get(0).getStatus())){
+                        map.put("success",false);
+                        map.put("user",2);
+                        return map;
+                    //审核未通过
+                    }else{
+                        map.put("success",false);
+                        map.put("user",3);
+                        return map;
+                    }
                 }else {
-                    rp.setUid(login1.getUid());
-                    rp.setStatus("1");
                     List<Reduser> redusers = userService.queryReduser(ru);
-                    List<Redpicture> redpictures = userService.queryRedpicture(rp);
-                    redusers.get(0).setRedpicture(redpictures.get(0));
-                    map.put("success", true);
-                    map.put("user", redusers.get(0));
-                    return map;
+                    //审核通过
+                    if ("3".equals(redusers.get(0).getStatus())) {
+                        rp.setUid(login1.getUid());
+                        rp.setStatus("1");
+                        List<Redpicture> redpictures = userService.queryRedpicture(rp);
+                        redusers.get(0).setRedpicture(redpictures.get(0));
+                        map.put("success", true);
+                        map.put("user", redusers.get(0));
+                        return map;
+                    //待审核
+                    }else if ("1".equals(redusers.get(0).getStatus())){
+                        map.put("success", false);
+                        map.put("user",2);
+                        return map;
+                    //审核未通过
+                    }else {
+                        map.put("success", false);
+                        map.put("user",3);
+                        return map;
+                    }
                 }
+            //密码错误
             }else {
                 map.put("success",false);
                 map.put("user",0);
                 return map;
             }
+        //用户不存在
         }else{
             map.put("success",false);
             map.put("user",1);
@@ -109,7 +137,7 @@ public class UserControl {
                 login1.setDaytime(sub);
                 login1.setUid(i);
                 reduser.setUid(i);
-                reduser.setStatus("3");
+                reduser.setStatus("1");
                 System.err.println(reduser);
                 userService.addReduser(reduser);
                 boolean bbb=userService.updateLoginUid(login1);
@@ -441,5 +469,48 @@ public class UserControl {
     public List<Userpicture> queryUserAllPic(String uid){
         return userService.queryUserAllPic(uid);
     }
-
+    //查看用户信息
+    @RequestMapping("queryOneUserByUid")
+    @ResponseBody
+    public User queryOneUser(String uid){
+        User u = new User();
+        Userpicture up = new Userpicture();
+        u.setUid(uid);
+        List<User> users = userService.queryUser(u);
+        if (users.size()>0) {
+            up.setStatus("1");
+            up.setUid(uid);
+            List<Userpicture> ups = userService.queryUserpic(up);
+            if (ups.size()>0){
+                users.get(0).setUserpicture(ups.get(0));
+                return users.get(0);
+            }else{
+                return users.get(0);
+            }
+        }else {
+            return users.get(0);
+        }
+    }
+    //查看红娘信息
+    @RequestMapping("queryOneRedUserByUid")
+    @ResponseBody
+    public Reduser queryOneRedUserByUid(String uid){
+        Reduser ru = new Reduser();
+        Redpicture rp = new Redpicture();
+        ru.setUid(uid);
+        List<Reduser> redusers = userService.queryReduser(ru);
+        if (redusers.size()>0) {
+            rp.setStatus("1");
+            rp.setUid(uid);
+            List<Redpicture> redpictures = userService.queryRedpicture(rp);
+            if (redpictures.size()>0){
+                redusers.get(0).setRedpicture(redpictures.get(0));
+                return redusers.get(0);
+            }else{
+                return redusers.get(0);
+            }
+        }else {
+            return redusers.get(0);
+        }
+    }
 }
