@@ -30,6 +30,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean updateLoginUid(Login login) {
+        return userDao.updateLoginUid(login)>0?true:false;
+    }
+
+    @Override
     public boolean addReduser(Reduser reduser) {
         return userDao.addReduser(reduser)>0?true:false;
     }
@@ -37,11 +42,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<Reduser> queryReduser(Reduser reduser) {
         return userDao.queryReduser(reduser);
-    }
-
-    @Override
-    public boolean updateReduid(Reduser reduser) {
-        return userDao.updateReduid(reduser) >0?true:false;
     }
 
 
@@ -76,6 +76,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<Userpicture> queryUserAllPic(String uid) {
+        return userDao.queryUserAllPic(uid);
+    }
+
+    @Override
     public List<Userpicture> queryUserpic(Userpicture userpicture) {
         return userDao.queryUserpic(userpicture);
     }
@@ -95,6 +100,7 @@ public class UserServiceImpl implements UserService {
         return userDao.queryUser(user);
     }
 
+
     @Override
     public boolean queryUserByphone(User user) {
         return userDao.queryUserByphone(user)>0?true:false;
@@ -105,10 +111,6 @@ public class UserServiceImpl implements UserService {
         return userDao.addUser(user)>0?true:false;
     }
 
-    @Override
-    public boolean updateUseruid(User user) {
-        return userDao.updateUserid(user)>0?true:false;
-    }
 
     @Override
     public boolean updateUser(User user) {

@@ -11,11 +11,11 @@ import java.util.List;
  * Created by Administrator on 2017/12/9.
  */
 public interface UserDao {
-    @Insert("insert into login(phone,password,referrer,uid,daytime) values(#{phone},#{password},#{referrer},#{uid},#{daytime})")
+    @Insert("insert into login(phone,password,referrer,daytime) values(#{phone},#{password},#{referrer},#{daytime})")
     int addLogin(Login login);
-    @Insert("insert into reduser(username,phone,identity,city,wechat,remark,status,address,introduce,workname,birthdata) values(#{username},#{phone},#{identity},#{city},#{wechat},#{remark},#{status},#{address},#{introduce},#{workname},#{birthdata})")
+    @Insert("insert into reduser(username,phone,identity,city,wechat,remark,status,address,introduce,workname,birthdata,uid) values(#{username},#{phone},#{identity},#{city},#{wechat},#{remark},#{status},#{address},#{introduce},#{workname},#{birthdata},#{uid})")
     int addReduser(Reduser reduser);
-    @Insert("insert into user(username,phone,sex,stature,birthdata,education,city,census,income,marital,wechat,introduce,remark,status,uid,profession,smoke,children,drink,race,num) values(#{username},#{phone},#{sex},#{stature},#{birthdata},#{education},#{city},#{census},#{income},#{marital},#{wechat},#{introduce},#{remark},#{status},#{uid},#{profession},#{smoke},#{children},#{drink},#{race},#{num})")
+    @Insert("insert into user(username,phone,sex,stature,birthdata,education,city,census,income,marital,wechat,introduce,remark,status,uid,profession,smoke,children,drink,race,num,uid) values(#{username},#{phone},#{sex},#{stature},#{birthdata},#{education},#{city},#{census},#{income},#{marital},#{wechat},#{introduce},#{remark},#{status},#{uid},#{profession},#{smoke},#{children},#{drink},#{race},#{num},#{uid})")
     int addUser(User user);
     @Insert("insert into userpicture(url,uid,status) values(#{url},#{uid},#{status})")
     int addUserpicture(Userpicture userpicture);
@@ -25,16 +25,12 @@ public interface UserDao {
     List<Reduser> queryReduserByother(Reduser reduser,Page page);
     @UpdateProvider(type = UserSql.class,method = "updateReduser")
     int updateReduser(Reduser reduser);
-    @Update("update reduser set uid=#{uid} where phone=#{phone}")
-    int updateReduid(Reduser reduser);
     @SelectProvider(type = UserSql.class,method = "queryLogin")
     List<Login> queryLogin(Login login);
     @Select("select count(1) from user where phone=#{phone}")
     int queryUserByphone(User user);
     @SelectProvider(type = UserSql.class,method = "queryUser")
     List<User> queryUser(User user);
-    @Update("update user set uid=#{uid} where phone=#{phone}")
-    int updateUserid(User user);
     @UpdateProvider(type = UserSql.class,method = "updateUser")
     int updateUser(User user);
     @Select("select * from userpicture where id=#{id}")
@@ -55,4 +51,8 @@ public interface UserDao {
     int updateRedpicture(Redpicture redpicture);
     @Select("select * from redpicture where uid=#{uid} and status=#{status}")
     Redpicture queryRedIpic(Redpicture redpicture);
+    @Update("update login set uid=#{uid},daytime = #{daytime} where id = #{id}")
+    int updateLoginUid(Login login);
+    @Select("select * from userpicture where uid = #{uid}")
+    List<Userpicture> queryUserAllPic(String uid);
 }

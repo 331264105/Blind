@@ -22,7 +22,7 @@ import java.util.List;
 public class UserControl {
     @Autowired
     private UserService userService;
-    //TODO[俞海]  动态路径
+    //动态路径
     @RequestMapping("{jn}")
     public String dt(@PathVariable String jn,HttpServletRequest request){
         System.out.print(jn);
@@ -44,6 +44,8 @@ public class UserControl {
     public HashMap<String,Object> queryLogin(Login login){
         HashMap<String,Object> map=new HashMap<>();
         Reduser ru= new Reduser();
+        Userpicture up = new Userpicture();
+        Redpicture rp = new Redpicture();
         User u = new User();
         List<Login> logins = userService.queryLogin(login);
         if (logins.size()>0){
@@ -53,17 +55,23 @@ public class UserControl {
                 u.setUid(login1.getUid());
                 List<User> users = userService.queryUser(u);
                 if (users.size()>0){
+                    up.setUid(login1.getUid());
+                    up.setStatus("1");
+                    List<Userpicture> ups = userService.queryUserpic(up);
+                    users.get(0).setUserpicture(ups.get(0));
                     map.put("success",true);
                     map.put("user",users.get(0));
+                    return map;
                 }else {
+                    rp.setUid(login1.getUid());
+                    rp.setStatus("1");
                     List<Reduser> redusers = userService.queryReduser(ru);
+                    List<Redpicture> redpictures = userService.queryRedpicture(rp);
+                    redusers.get(0).setRedpicture(redpictures.get(0));
                     map.put("success", true);
                     map.put("user", redusers.get(0));
                     return map;
                 }
-                map.put("success",false);
-                map.put("user",1);
-                return map;
             }else {
                 map.put("success",false);
                 map.put("user",0);
@@ -86,24 +94,25 @@ public class UserControl {
             return "1";
         }
         List<Reduser> redusers = userService.queryReduser(reduser);
-        String phone = reduser.getPhone();
+        String phone = login.getPhone();
         if (redusers.size()>0){
             return  "0";
         }else {
-            boolean b = userService.addReduser(reduser);
+            boolean b = userService.addLogin(login);
             if (b) {
-                Reduser ru = new Reduser();
-                ru.setPhone(phone);
-                List<Reduser> redusers1 = userService.queryReduser(ru);
-                Reduser reduser1 = redusers1.get(0);
-                String i = CreateUid.CreateUid(reduser1.getId());
-                String s = String.valueOf(i);
-                String sub = s.substring(0, 6);
-                login.setDaytime(sub);
-                login.setUid(i);
-                reduser1.setUid(i);
-                userService.addLogin(login);
-                boolean bbb=userService.updateReduid(reduser1);
+                Login log = new Login();
+                log.setPhone(phone);
+                List<Login> logins = userService.queryLogin(login);
+                Login login1 = logins.get(0);
+                String i = CreateUid.CreateUid(login1.getId());
+                String sub = i.substring(0, 6);
+                login1.setDaytime(sub);
+                login1.setUid(i);
+                reduser.setUid(i);
+                reduser.setStatus("3");
+                System.err.println(reduser);
+                userService.addReduser(reduser);
+                boolean bbb=userService.updateLoginUid(login1);
                 if (bbb){
                     return i;
                 }else{
@@ -124,26 +133,26 @@ public class UserControl {
             return "1";
         }
         boolean bb = userService.queryUserByphone(user);
-        String phone = user.getPhone();
+        String phone = login.getPhone();
         if (bb){
             return "0";
         }else {
-            user.setStatus("1");
-            user.setNum(0);
-            boolean b = userService.addUser(user);
+            boolean b = userService.addLogin(login);
             if (b) {
-                User ru=new User();
-                ru.setPhone(phone);
-                List<User> redusers1 = userService.queryUser(ru);
-                User reduser1 = redusers1.get(0);
-                String i = CreateUid.CreateUid(reduser1.getId());
+                Login log = new Login();
+                log.setPhone(phone);
+                List<Login> logins = userService.queryLogin(log);
+                Login login1 = logins.get(0);
+                String i = CreateUid.CreateUid(login1.getId());
                 String s = String.valueOf(i);
                 String sub = s.substring(0, 6);
-                login.setDaytime(sub);
-                login.setUid(i);
-                reduser1.setUid(i);
-                userService.addLogin(login);
-                boolean a = userService.updateUseruid(reduser1);
+                login1.setDaytime(sub);
+                login1.setUid(i);
+                user.setStatus("1");
+                user.setNum(0);
+                user.setUid(i);
+                userService.addUser(user);
+                boolean a = userService.updateLoginUid(login1);
                 if (a){
                     return i;
                 }else{
@@ -176,10 +185,10 @@ public class UserControl {
         }
         return false;
     }
-    //查看用户信息
-    @RequestMapping("/queryUsers")
+    //后台查看用户信息
+    @RequestMapping("/bacqueryUsers")
     @ResponseBody
-    public List<User> queryUsers(User user,Page page){
+    public List<User> bacqueryUsers(User user,Page page){
         page.setRows(10);
         page.setPage((page.getPage() - 1) * 10);
         List<User> userList = userService.queryUserByother(user,page);
@@ -192,8 +201,48 @@ public class UserControl {
         }
         return userList;
     }
-    //查看红娘信息
+    //前端查看用户信息
+    @RequestMapping("/queryUsers")
+    @ResponseBody
+    public List<User> queryUsers(User user,Page page){
+        page.setRows(10);
+        page.setPage((page.getPage() - 1) * 10);
+        List<User> userList = userService.queryUserByother(user,page);
+        Userpicture upic = new Userpicture();
+        for (User u:userList) {
+            String[] area = u.getCity().split(" ");
+            u.setCity(area[2]);
+            String[] year = u.getBirthdata().split("-");
+            u.setBirthdata(year[0]);
+            upic.setUid(u.getUid());
+            upic.setStatus("1");
+            List<Userpicture> userpictures = userService.queryUserpic(upic);
+            u.setUserpicture(userpictures.get(0));
+        }
+        return userList;
+    }
+    //前端查看红娘信息
     @RequestMapping("/queryReduser")
+    @ResponseBody
+    public List<Reduser> bacqueryReduser(Reduser reduser,Page page){
+        page.setRows(10);
+        page.setPage((page.getPage() - 1)*10);
+        List<Reduser> redusers = userService.queryReduserByother(reduser,page);
+        Redpicture rp=new Redpicture();
+        for (Reduser ru:redusers){
+            String[] area = ru.getCity().split(" ");
+            ru.setCity(area[2]);
+            String[] year = ru.getBirthdata().split("-");
+            ru.setBirthdata(year[0]);
+            rp.setUid(ru.getUid());
+            rp.setStatus("1");
+            Redpicture rpic = userService.queryRedIpic(rp);
+            ru.setRedpicture(rpic);
+        }
+        return redusers;
+    }
+    //后台查看红娘信息
+    @RequestMapping("/bacqueryReduser")
     @ResponseBody
     public List<Reduser> queryReduser(Reduser reduser,Page page){
         page.setRows(10);
@@ -376,6 +425,7 @@ public class UserControl {
         int i = users.get(0).getNum();
         u.setNum(i+1);
         boolean b = userService.updateUser(u);
+        userpicture.setStatus(" ");
         return userService.queryUserpic(userpicture);
     }
     //查看红娘图片
@@ -385,14 +435,11 @@ public class UserControl {
         return userService.queryRedpicture(redpicture);
     }
 
-
-
-    /*@RequestMapping("/queryUserByother")
+    //查看单个用户的所有图片
+    @RequestMapping("/queryUserAllPic")
     @ResponseBody
-    public HashMap<String,Object> queryUserByother(User user){
-        HashMap<String,Object> map=new HashMap<>();
-        List<User> users = userService.queryUserByother(user);
-        Collections.shuffle(users);
-        return map;
-    }*/
+    public List<Userpicture> queryUserAllPic(String uid){
+        return userService.queryUserAllPic(uid);
+    }
+
 }

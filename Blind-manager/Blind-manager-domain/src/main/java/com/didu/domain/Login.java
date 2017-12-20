@@ -7,20 +7,20 @@ public class Login {
     private int id;
     private String phone;
     private String password;
-    private int referrer;
+    private String referrer;
     private String uid;
     private String daytime;
 
-    public Login(String daytime, int id, String phone, String password, int referrer, String uid) {
-        this.daytime = daytime;
+    public Login(int id, String phone, String password, String referrer, String uid, String daytime) {
         this.id = id;
         this.phone = phone;
         this.password = password;
         this.referrer = referrer;
         this.uid = uid;
+        this.daytime = daytime;
     }
 
-    public Login(String phone, String password, int referrer, String uid, String daytime) {
+    public Login(String phone, String password, String referrer, String uid, String daytime) {
         this.phone = phone;
         this.password = password;
         this.referrer = referrer;
@@ -56,11 +56,11 @@ public class Login {
         this.password = password;
     }
 
-    public int getReferrer() {
+    public String getReferrer() {
         return referrer;
     }
 
-    public void setReferrer(int referrer) {
+    public void setReferrer(String referrer) {
         this.referrer = referrer;
     }
 
@@ -86,7 +86,7 @@ public class Login {
                 "id=" + id +
                 ", phone='" + phone + '\'' +
                 ", password='" + password + '\'' +
-                ", referrer=" + referrer +
+                ", referrer='" + referrer + '\'' +
                 ", uid='" + uid + '\'' +
                 ", daytime='" + daytime + '\'' +
                 '}';

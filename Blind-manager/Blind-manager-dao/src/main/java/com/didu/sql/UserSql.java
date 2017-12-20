@@ -17,9 +17,6 @@ public class UserSql {
                 {
                     SELECT("*");
                     FROM("reduser");
-                    if (reduser.getIdentity() != null && reduser.getIdentity().length() > 0) {
-                        WHERE("identity=#{identity}");
-                    }
                     if (reduser.getPhone() != null && reduser.getPhone().length() > 0) {
                         WHERE("phone=#{phone}");
                     }
@@ -179,6 +176,9 @@ public class UserSql {
                     if (user.getCity()!=null&&user.getCity().length()>0){
                         SET("city=#{city}");
                     }
+                    if (user.getRace()!=null&&user.getRace().length()>0){
+                        SET("race=#{race}");
+                    }
                     if (user.getStatus()!=null&&user.getStatus().length()>0){
                         SET("status=#{status}");
                     }
@@ -200,14 +200,32 @@ public class UserSql {
                     if (user.getProfession()!=null&&user.getProfession().length()>0){
                         SET("profession=#{profession}");
                     }
+                    if (user.getChildren()!=null&&user.getChildren().length()>0){
+                        SET("children=#{children}");
+                    }
                     if (user.getUsername()!=null&&user.getUsername().length()>0){
                         SET("username=#{username}");
+                    }
+                    if (user.getSmoke()!=null&&user.getSmoke().length()>0){
+                        SET("smoke=#{smoke}");
+                    }
+                    if (user.getDrink()!=null&&user.getDrink().length()>0){
+                        SET("drink=#{drink}");
                     }
                     if (user.getWechat()!=null&&user.getWechat().length()>0){
                         SET("wechat=#{wechat}");
                     }
                     if (user.getMarital()!=null&&user.getMarital().length()>0){
                         SET("marital=#{marital}");
+                    }
+                    if (user.getSex()!=null&&user.getSex().length()>0){
+                        SET("marital=#{marital}");
+                    }
+                    if (user.getStature()!=null&&user.getStature().length()>0){
+                        SET("stature=#{stature}");
+                    }
+                    if (user.getNum()>0){
+                        SET("num=#{num}");
                     }
                     WHERE("uid=#{uid}");
                 }

@@ -11,9 +11,10 @@ import java.util.List;
 public interface UserService {
     boolean addLogin(Login login);
     List<Login> queryLogin(Login login);
+    boolean updateLoginUid(Login login);
+
     boolean addReduser(Reduser reduser);
     List<Reduser> queryReduser(Reduser reduser);
-    boolean updateReduid(Reduser reduser);
     boolean updateReduser(Reduser reduser);
     boolean updateRedpicture(Redpicture redpicture);
     List<Redpicture> queryRedpicture(Redpicture redpicture);
@@ -21,6 +22,8 @@ public interface UserService {
     Redpicture queryRedIpic(Redpicture redpicture);
     //通过id查看
     List<Userpicture> queryUserpicture(Userpicture userpicture);
+    //我的查看所有图片
+    List<Userpicture> queryUserAllPic(String uid);
     //通过uid和status查看
     List<Userpicture> queryUserpic(Userpicture userpicture);
     boolean updateUserpicture(Userpicture userpicture);
@@ -30,7 +33,6 @@ public interface UserService {
     List<User> queryUser(User user);
     boolean queryUserByphone(User user);
     boolean addUser(User user);
-    boolean updateUseruid(User user);
     boolean updateUser(User user);
     boolean addUserpicture(Userpicture userpicture);
     boolean updateUserpictureByuid(Userpicture userpicture);
