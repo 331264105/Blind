@@ -15,7 +15,7 @@ public interface UserDao {
     int addLogin(Login login);
     @Insert("insert into reduser(username,phone,identity,city,wechat,remark,status,address,introduce,workname,birthdata,uid) values(#{username},#{phone},#{identity},#{city},#{wechat},#{remark},#{status},#{address},#{introduce},#{workname},#{birthdata},#{uid})")
     int addReduser(Reduser reduser);
-    @Insert("insert into user(username,phone,sex,stature,birthdata,education,city,census,income,marital,wechat,introduce,remark,status,uid,profession,smoke,children,drink,race,num,uid) values(#{username},#{phone},#{sex},#{stature},#{birthdata},#{education},#{city},#{census},#{income},#{marital},#{wechat},#{introduce},#{remark},#{status},#{uid},#{profession},#{smoke},#{children},#{drink},#{race},#{num},#{uid})")
+    @Insert("insert into user(username,phone,sex,stature,birthdata,education,city,census,income,marital,wechat,introduce,remark,status,uid,profession,smoke,children,drink,race,num) values(#{username},#{phone},#{sex},#{stature},#{birthdata},#{education},#{city},#{census},#{income},#{marital},#{wechat},#{introduce},#{remark},#{status},#{uid},#{profession},#{smoke},#{children},#{drink},#{race},#{num})")
     int addUser(User user);
     @Insert("insert into userpicture(url,uid,status) values(#{url},#{uid},#{status})")
     int addUserpicture(Userpicture userpicture);

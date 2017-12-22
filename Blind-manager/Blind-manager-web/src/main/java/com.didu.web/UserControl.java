@@ -513,4 +513,10 @@ public class UserControl {
             return redusers.get(0);
         }
     }
+    //TODO 瞧瞧
+    @RequestMapping("/updatePasswd")
+    @ResponseBody
+    public boolean updatepasswd(Login login){
+        return false;
+    }
 }
